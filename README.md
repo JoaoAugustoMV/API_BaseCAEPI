@@ -38,7 +38,7 @@
     - t: Nomear container
 - Seguindo o exemplo a URL base será: http://localhost:5200
   - Documentação Swagger em: http://localhost:5200/swagger
-  ![Documentação Swagger]([imgs\swagger.png](https://raw.githubusercontent.com/JoaoAugustoMV/API_BaseCAEPI/main/imgs/swagger.png "Documentação Swagger")
+  ![Documentação Swagger]([imgs\swagger.png](https://github.com/JoaoAugustoMV/API_BaseCAEPI/blob/main/imgs/swagger.png?raw=true "Documentação Swagger")
 ## Retorno JSON 
 - URL/ca/:NumeroCAPretendido
 ```
