@@ -1,0 +1,9 @@
+.gitignore
+
+__pycache__
+.vscode
+.venv
+myenv
+tgg_export_caepi.txt
+Todo.md
+imgs
