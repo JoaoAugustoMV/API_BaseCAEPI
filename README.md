@@ -5,7 +5,7 @@
 - CA: O Certificado de Aprovação é um documento expedido pelo Ministério do Trabalho e Emprego que atesta referente a funcionalidade daquele Equipamento de Proteção Individual (EPI).
 
 # API
-- Esta API tem como objetivo entregar uma forma facil e rapida de consulta de CAs
+- Esta API tem como objetivo entregar uma forma facil e rapida de consulta de informações de CAs
 - Com ela é possivel:
   - Retorna as informações atualizadas do EPI 
   - Retorna todas as informações já ocorridas no EPI
