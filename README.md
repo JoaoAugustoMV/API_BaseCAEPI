@@ -1,11 +1,12 @@
 #  Sistema CAEPI
 
-- Base de dados do Sistema CAEPI: Contem todas informações sobre os CA e os respectivos EPI 
+- Base de dados do Sistema CAEPI: Contém todas informações sobre os CA e os respectivos EPI 
   - Esta base é atualizada diariamente as 20h, localizada no endereço ftp://ftp.mtps.gov.br/portal/fiscalizacao/seguranca-e-saude-notrabalho/caepi
 - CA: O Certificado de Aprovação é um documento expedido pelo Ministério do Trabalho e Emprego que atesta referente a funcionalidade daquele Equipamento de Proteção Individual (EPI).
+- O site oficial do governo para consulta de CA é http://caepi.mte.gov.br/internet/ConsultaCAInternet.aspx, mas é extremamente lento e sem nenhum tipo de integração com outros sistemas
 
 # API
-- Esta API tem como objetivo entregar uma forma facil e rapida de consulta de informações de CAs
+- Esta API tem como objetivo entregar uma forma fácil e rápida de consulta de informações de CAs
 - Com ela é possivel:
   - Retorna as informações atualizadas do EPI 
   - Retorna todas as informações já ocorridas no EPI
@@ -13,16 +14,17 @@
 
 # Funcionamento
 
-- Automaticamente é baixado o arquivo da baseCAEPI do servidor do sistema CAEPI, ele é transformado em uma tabela(pandas.Dataframe) e atraves dos endpoints acontecem as consultas nessa tabela
+- Automaticamente é baixado o arquivo da baseCAEPI do servidor do sistema CAEPI, ele é transformado em uma tabela(pandas.Dataframe) e através dos endpoints acontecem as consultas nessa tabela
 - Tambem de forma automatica, as 20h10 é atualizada a tabela 
-  - A base do servidor é atualizadas as 20h, apenas como margem de erro a tabela é atualizada as 20h10
+  - A base do servidor é atualizadas as 20h, apenas como margem de erro a tabela interna é atualizada as 20h10
+  
 ## Stack
 
 - Python
   - Flask: Aplicação Web
   - Flask_restx: Documentação no Swagger
   - Pandas: Controlar a tabela
-- Docker: Controlar container
+- Docker: Implantar container
  
 # Consumir 
  
