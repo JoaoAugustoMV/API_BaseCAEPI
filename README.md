@@ -31,11 +31,11 @@
 
 ## Iniciar container
 
-- docker pull {tag}: Baixa a imagem do docker hub
+- docker pull joaoaugustomv/api_base_ca_epi
 - docker run -d -p {portaMaquina):5000 --name {nomeContainer} {tag}: Executa a imagem do container
     - d: Não trava o terminal
     - p: Mapea as portas da maquina com as portas do container respectivamente. Ex: 5200:5000
-    - t: Nomear container
+    - name: Nomear container
 - Seguindo o exemplo a URL base será: http://localhost:5200
   - Documentação Swagger em: http://localhost:5200/swagger
   ![Documentação Swagger](imgs\swagger.png "Documentação Swagger")
