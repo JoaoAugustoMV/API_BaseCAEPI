@@ -29,7 +29,7 @@
 # Consumir 
  
 - API está conteinerizada disponivel no DockerHub
-  - Docker Hub: https://hub.docker.com/r/joaoaugustomv/api_certificado_aprovacao
+  - Docker Hub: https://hub.docker.com/r/joaoaugustomv/api_base_ca_epi
 
 ## Iniciar container
 
