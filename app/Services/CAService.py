@@ -1,32 +1,31 @@
-from app.Services.BaseDadosCaEPI import BaseDadosCaEPI;
+from Services.BaseDadosCaEPI import BaseDadosCaEPI;
 import io
 import pandas as pd
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
-from app.Services.BaseDadosCaEPI import BaseDadosCaEPI;
 
 class CAService:    
     def __init__(self):        
         self.baseDadosDF = BaseDadosCaEPI().retornarBaseDados()
         self._defineHorarioAtualizacao()
         
-    def retornarTodasAtualizacoes(self, ca):
+    def retornarTodasAtualizacoes(self, ca: str) -> dict:
         dadosEPI = self.baseDadosDF.loc[self.baseDadosDF['RegistroCA'] == ca]            
         if dadosEPI.empty:
             return None
         return dadosEPI.to_dict('records')
 
-    def retornarTodasInfoAtuais(self, ca):
+    def retornarTodasInfoAtuais(self, ca: str) -> dict:
         dadosEPI = self.baseDadosDF.loc[self.baseDadosDF['RegistroCA'] == ca]        
         if dadosEPI.empty:
             return None
         return dadosEPI.iloc[-1].to_dict()
         
 
-    def caValido(self, ca):
+    def caValido(self, ca) -> bool:
         return self.retornarTodasInfoAtuais(ca)['Situacao'] == 'VÁLIDO'    
         
-    def exportarExcel(self, listaCAs, nomeArquivo):
+    def exportarExcel(self, listaCAs: list[str], nomeArquivo: str) -> dict:
         df = self._filtrarPorCAs(listaCAs)        
         
         CAsNaoEncontrados = self._retornaCAsNaoEncontrado(df, listaCAs)
@@ -41,7 +40,7 @@ class CAService:
         writer.close()
         output.seek(0)
 
-        return {"success": True, 'planilha': output.getvalue()}
+        return {"success": True, 'planilha': output}
     
     def exportarJson(self, listaCAs):
         df = self._filtrarPorCAs(listaCAs)

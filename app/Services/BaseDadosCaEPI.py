@@ -36,7 +36,7 @@ class BaseDadosCaEPI:
         if('RegistroCA' not in self.baseDadosDF.columns):
             self.baseDadosDF = self.baseDadosDF.rename(columns = {'#NRRegistroCA':'RegistroCA'})
 
-    def retornarBaseDados(self):        
+    def retornarBaseDados(self) -> pd.DataFrame:
         print("Aguarde o download...")        
         self._baixarArquivoBaseCaEPI()
         print(f"Download concluido!")
