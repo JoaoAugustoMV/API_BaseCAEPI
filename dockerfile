@@ -1,10 +1,6 @@
-FROM python:3.8-slim-buster
-WORKDIR /app
-
-COPY ./requirements.txt /app/requirements.txt
-
+FROM python:3.10-slim
+WORKDIR /fastapi
+COPY requirements.txt /fastapi
 RUN pip install -r requirements.txt
-COPY . /app
-
-ENTRYPOINT ["python"]
-CMD ["run.py"]
+COPY ./app /fastapi/
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
