@@ -52,10 +52,10 @@ class CAService:
             
     def _filtrarPorCAs(self, listaCAs):        
         df = self.baseDadosDF.loc[self.baseDadosDF['RegistroCA'].isin(listaCAs)]
-        return df.groupby('RegistroCA').last()
+        return df.drop_duplicates('RegistroCA', keep='last')
     
-    def _retornaCAsNaoEncontrado(self, df, listaCAs):       
-        return [ca for ca in listaCAs if ca not in df.index]
+    def _retornaCAsNaoEncontrado(self, df: pd.DataFrame, listaCAs: list[str]) -> list[str]:       
+        return [ca for ca in listaCAs if ca not in df['RegistroCA'].values]
     
     def _atualizarBaseDados(self):
         self.baseDadosDF = BaseDadosCaEPI().retornarBaseDados()
