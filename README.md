@@ -21,8 +21,7 @@
 ## Stack
 
 - Python
-  - Flask: Aplicação Web
-  - Flask_restx: Documentação no Swagger
+  - FastAPI: Aplicação Web  
   - Pandas: Controlar a tabela
 - Docker: Implantar container
  
