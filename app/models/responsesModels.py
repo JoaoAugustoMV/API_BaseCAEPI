@@ -17,6 +17,10 @@ class ResponsesModels():
                     "description": "Todos CA foram localizados",
                     "content": {"'application/vnd.      openxmlformats-officedocument.spreadsheetml.sheet": {}}
                     },
+                400:{
+                    "model": Erros,
+                    "description": "listaCAs não pode ser vazia",  
+                    },
                 404:{
                     "model": CAsNaoEncontrados,
                     "description": "Um ou mais CA não foi localizados",  

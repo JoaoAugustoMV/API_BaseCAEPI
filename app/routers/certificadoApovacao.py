@@ -5,13 +5,10 @@ from fastapi.responses import JSONResponse, StreamingResponse
 
 from Services.CAService import CAService
 
-from models.CAsNaoEncontrados import CAsNaoEncontrados
 from models.exemplosRequest import ExemplosRequest
 from models.requestParaExportarArquivo import RequestParaExportarArquivo
 from models.requestParaExportarJson import RequestParaExportarJson
 from models.infoCADto import InfoCADto
-from models.Erros import Erros
-from models.Erros import Erros
 from models.responsesModels import ResponsesModels
 
 
@@ -60,8 +57,13 @@ def post(
         example=ExemplosRequest.exportarArquivo)] ) -> StreamingResponse:
     # Criar uma resposta para o arquivo Excel
     respExportarExcel = caService.exportarExcel(request.listaCAs, request.nomeArquivo)
+    if len(request.listaCAs) == 0:
+        return JSONResponse(status_code=400, content={
+            "sucess": False,
+            "erros": "listaCAs não pode estar vazia"})
+
     if not respExportarExcel['success']:
-        return JSONResponse(404, content={
+        return JSONResponse(status_code=404, content={
             "sucess": False,
             "CAsNaoEncontrados": respExportarExcel['CAsNaoEncontrados']})
     
@@ -78,12 +80,15 @@ def post(
             summary= "Retorna um JSON com as informações dos CAs informados",            
             responses=ResponsesModels.responsesExportar)
 def exportarJSON(request: RequestParaExportarJson) -> list[InfoCADto]:
-    respExportarJson = caService.exportarJson(request.listaCAs)
-
-    if not respExportarJson['success']:
-        return JSONResponse(404, content={
+    if len(request.listaCAs) == 0:        
+        return JSONResponse(status_code=400, content={
             "sucess": False,
-            "CAsNaoEncontrados": respExportarJson['CAsNaoEncontrados']})
-    
+            "erros": "listaCAs não pode estar vazia"})
+
+    respExportarJson = caService.exportarJson(request.listaCAs)
+    if not respExportarJson['success']:        
+        return JSONResponse(status_code=404, 
+                    content=respExportarJson                       
+                )
     
     return respExportarJson['JSON']

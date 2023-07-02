@@ -9,7 +9,7 @@ class CAService:
         self.baseDadosDF = BaseDadosCaEPI().retornarBaseDados()
         self._defineHorarioAtualizacao()
         
-    def retornarTodasAtualizacoes(self, ca: str) -> dict:
+    def retornarTodasAtualizacoes(self, ca: str) -> list[dict]:
         dadosEPI = self.baseDadosDF.loc[self.baseDadosDF['RegistroCA'] == ca]            
         if dadosEPI.empty:
             return None
@@ -19,9 +19,9 @@ class CAService:
         dadosEPI = self.baseDadosDF.loc[self.baseDadosDF['RegistroCA'] == ca]        
         if dadosEPI.empty:
             return None
+        
         return dadosEPI.iloc[-1].to_dict()
         
-
     def caValido(self, ca) -> bool:
         return self.retornarTodasInfoAtuais(ca)['Situacao'] == 'VÁLIDO'    
         
@@ -42,7 +42,7 @@ class CAService:
 
         return {"success": True, 'planilha': output}
     
-    def exportarJson(self, listaCAs):
+    def exportarJson(self, listaCAs: list[str]) -> dict:
         df = self._filtrarPorCAs(listaCAs)
         CAsNaoEncontrados = self._retornaCAsNaoEncontrado(df, listaCAs)
         if CAsNaoEncontrados != []:
@@ -50,20 +50,20 @@ class CAService:
         
         return {"success": True, "JSON": df.to_dict('records')}
             
-    def _filtrarPorCAs(self, listaCAs):        
+    def _filtrarPorCAs(self, listaCAs: list[str]) -> pd.DataFrame:        
         df = self.baseDadosDF.loc[self.baseDadosDF['RegistroCA'].isin(listaCAs)]
-        return df.groupby('RegistroCA').last()
+        return df.drop_duplicates('RegistroCA', keep='last')
     
-    def _retornaCAsNaoEncontrado(self, df, listaCAs):       
-        return [ca for ca in listaCAs if ca not in df.index]
+    def _retornaCAsNaoEncontrado(self, df: pd.DataFrame, listaCAs: list[str]) -> list[str]:       
+        return [ca for ca in listaCAs if ca not in df['RegistroCA'].values]
     
     def _atualizarBaseDados(self):
         self.baseDadosDF = BaseDadosCaEPI().retornarBaseDados()
         print("Base de Dados atualizada em", datetime.now())
 
     def _defineHorarioAtualizacao(self):
-        horaAtualizacao = 16
-        minutoAtualizacao = 38
+        horaAtualizacao = 20
+        minutoAtualizacao = 10
         scheduler = BackgroundScheduler()
         scheduler.start()
 
