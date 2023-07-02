@@ -42,6 +42,7 @@
   ![Documentação Swagger](https://github.com/JoaoAugustoMV/API_BaseCAEPI/blob/main/imgs/swagger.png?raw=true "Documentacao Swagger")
 ## Retorno JSON 
 - URL/ca/:NumeroCAPretendido
+docker tag api_basecaepi_fastapi-slim joaoaugustomv/api_base_ca_epi:2.0
 ```
 {
   "RegistroCA": "string",
