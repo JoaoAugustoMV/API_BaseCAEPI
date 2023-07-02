@@ -23,7 +23,9 @@ class CAService:
         return dadosEPI.iloc[-1].to_dict()
         
     def caValido(self, ca) -> bool:
-        return self.retornarTodasInfoAtuais(ca)['Situacao'] == 'VÁLIDO'    
+        ca = self.retornarTodasInfoAtuais(ca)
+        if ca:
+            return ca['Situacao'] == 'VÁLIDO'    
         
     def exportarExcel(self, listaCAs: list[str], nomeArquivo: str) -> dict:
         df = self._filtrarPorCAs(listaCAs)        
