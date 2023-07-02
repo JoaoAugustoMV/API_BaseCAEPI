@@ -1,6 +1,7 @@
 from models.Erros import Erros
 from models.CAsNaoEncontrados import CAsNaoEncontrados
 
+from fastapi.responses import JSONResponse
 
 class ResponsesModels():
     responsesInfoCA:dict = {
@@ -26,3 +27,21 @@ class ResponsesModels():
                     "description": "Um ou mais CA não foi localizados",  
                     },
                 }
+    
+    responsesCANaoEncontrado = JSONResponse(status_code=404, content={
+        "sucess": False,
+        "erros": ["Numero Ca não encontrado!"]
+        })
+    
+    responsesListaVazia = JSONResponse(status_code=404, content={
+        "sucess": False,
+        "erros": ["listaCAs não pode estar vazia"]
+        })
+
+    def responsesExportarCAsNaoEncontrado(self, listCAsNaoEncontrados):
+        return JSONResponse(status_code=404, content={
+        "sucess": False,
+        "erros": {
+            'CAsNaoEncontrados': listCAsNaoEncontrados
+            }        
+        })
