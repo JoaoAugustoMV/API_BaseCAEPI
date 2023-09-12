@@ -32,7 +32,7 @@ class BaseDadosCaEPI:
         arquivoZip.extractall()
     
     def _transformarEmDataFrame(self):                  
-        self.baseDadosDF = pd.read_csv(self.nomeArquivo, sep=r"(?<!:\s)\|(?!\s)",engine='python', encoding='unicode_escape', quoting=3, quotechar='"', dtype="string")
+        self.baseDadosDF = pd.read_csv(self.nomeArquivo, sep=r"(?<!\s)\|(?!\s)",engine='python', encoding='unicode_escape', quoting=3, quotechar='"', dtype="string")
         if('RegistroCA' not in self.baseDadosDF.columns):
             self.baseDadosDF = self.baseDadosDF.rename(columns = {'#NRRegistroCA':'RegistroCA'})
 
