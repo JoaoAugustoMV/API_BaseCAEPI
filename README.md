@@ -33,9 +33,10 @@
 ## Iniciar container
 
 - docker pull joaoaugustomv/api_base_ca_epi
-- docker run -d -p {portaMaquina):5000 --name {nomeContainer} {tag}: Executa a imagem do container
+- docker run -d -p {portaMaquina):80 --name {nomeContainer} {tag}: Executa a imagem do container
+  - Ex: docker run -d -p 5200:80 --name container-api-base-ca joaoaugustomv/api_base_ca_epi
     - d: Não trava o terminal
-    - p: Mapea as portas da maquina com as portas do container respectivamente. Ex: 5200:5000
+    - p: Mapea as portas da maquina com as portas do container respectivamente. Ex: 5200:80
     - name: Nomear container
 - Seguindo o exemplo a URL base será: http://localhost:5200
   - Documentação Swagger em: http://localhost:5200/swagger
