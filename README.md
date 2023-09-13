@@ -68,5 +68,20 @@ docker tag api_basecaepi_fastapi-slim joaoaugustomv/api_base_ca_epi:2.0
 ```
   - OBS: Alguns EPI podem ter campos nulos
 
+# Aviso sobre possiveis erros
+
+- Como já falado, a base de dados é um arquivo de texto em formato csv, mas com o separador '|'
+  - Exemplo: 
+    ```
+    #NRRegistroCA|DataValidade|Situacao|NRProcesso...\n
+    20737|23/09/2013|VENCIDO|46000022149200814...\n
+    ```
+- Infelizmente há inconsistencias na base:
+  - Há o caracter '|' em algumas linhas mas que não são para separação de colunas.O que dificulta a separação correta. Como os CA: 34535 e 42037
+  
+  - Como foram achados poucos registros com erro, este são tratados individualmente
+
+- Caso ocorra de registros que não conseguiram ser tratados, estes serão adicionados em um arquivo "CAs_com_erros.txt"
+- Por enquanto, não foi achado nenhum registro que tenha um erro que não pode ser tratado. Caso encontre, por favor me avise!
 
 
