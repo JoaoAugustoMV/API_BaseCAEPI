@@ -1,3 +1,6 @@
 venv/
 __pycache__/
 tgg_export_caepi.txt
+CAs_com_erros.txt
+.vscode
+Todo.md
