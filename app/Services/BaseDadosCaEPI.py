@@ -44,7 +44,7 @@ class BaseDadosCaEPI:
         listaCAsValidos = []
         listaCAsInvalidos = []
 
-        arquivo = open(self.nomeArquivoBase, encoding='unicode_escape')
+        arquivo = open(self.nomeArquivoBase, encoding='latin-1')
         for linha in arquivo.readlines():
             linhaDf = linha.split('|')
             if len(linhaDf) > self.nColunas:
