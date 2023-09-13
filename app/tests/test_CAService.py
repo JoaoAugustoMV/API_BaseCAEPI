@@ -15,6 +15,26 @@ class test_CAService(TestCase):
         # Assert
         self.assertIsNotNone(infoCa)
 
+    def test_retorna_true_se_ca_com_erro__linha_for_encontrado_info_atuais01(self):
+        # Arrange        
+        ca = '42037'
+
+        # Act
+        infoCa = self.caService.retornarTodasInfoAtuais(ca)        
+
+        # Assert
+        self.assertIsNotNone(infoCa)
+
+    def test_retorna_true_se_ca_com_erro__linha_for_encontrado_info_atuais02(self):
+        # Arrange        
+        ca = '34535'
+
+        # Act
+        infoCa = self.caService.retornarTodasInfoAtuais(ca)        
+
+        # Assert
+        self.assertIsNotNone(infoCa)
+
     def test_retorna_false_se_ca_nao_for_encontrado_info_atuais(self):
         # Arrange        
         ca = '20'
