@@ -34,7 +34,7 @@
 
 - docker pull joaoaugustomv/api_base_ca_epi
 - docker run -d -p {portaMaquina):80 --name {nomeContainer} {tag}: Executa a imagem do container
-  - Ex: docker run -d -p 5200:80 --name container-api-base-ca joaoaugustomv/api_base_ca_epi
+  - Ex: docker run -d -p 5200:80 --name container-api-base-ca joaoaugustomv/api_base_ca_epi:2.0
     - d: Não trava o terminal
     - p: Mapea as portas da maquina com as portas do container respectivamente. Ex: 5200:80
     - name: Nomear container
