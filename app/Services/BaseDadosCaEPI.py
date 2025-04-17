@@ -8,10 +8,34 @@ import re
 class BaseDadosCaEPI:
     baseDadosDF = None 
     nomeArquivoBase = 'tgg_export_caepi.txt'
+    nomeArquivoConfigNomesColunas = 'config_nomes_colunas.csv'
     nomeArquivoErros = 'CAs_com_erros.txt'    
     urlBase = 'ftp.mtps.gov.br'
     caminho = 'portal/fiscalizacao/seguranca-e-saude-no-trabalho/caepi/'
     nColunas = 19
+
+
+    nomeColunas = [
+        "RegistroCA",
+        "DataValidade",
+        "Situacao",
+        "NRProcesso",
+        "CNPJ",
+        "RazaoSocial",
+        "Natureza",
+        "NomeEquipamento",
+        "DescricaoEquipamento",
+        "MarcaCA",
+        "Referencia",
+        "Cor",
+        "AprovadoParaLaudo",
+        "RestricaoLaudo",
+        "ObservacaoAnaliseLaudo",
+        "CNPJLaboratorio",
+        "RazaoSocialLaboratorio",
+        "NRLaudo",
+        "Norma"        
+    ]
 
     def __init__(self):
         self = self
@@ -36,15 +60,21 @@ class BaseDadosCaEPI:
     def _transformarEmDataFrame(self):          
         listaCas = self._retornarCAsSemErros()
         cols = listaCas[0]
-        self.baseDadosDF = pd.DataFrame(listaCas, columns=cols)
-        if('RegistroCA' not in self.baseDadosDF.columns):
-            self.baseDadosDF = self.baseDadosDF.rename(columns = {'#NRRegistroCA':'RegistroCA'})        
+        self.baseDadosDF = pd.DataFrame(listaCas, columns=cols)        
+
+        self.baseDadosDF.columns = self.__retornaNomesColunas()
+
+    def __retornaNomesColunas(self):
+        arquivo = open(self.nomeArquivoConfigNomesColunas, encoding='UTF-8')
+
+        return arquivo.readline().split(',')
 
     def _retornarCAsSemErros(self) -> list:
         listaCAsValidos = []
         listaCAsInvalidos = []
 
-        arquivo = open(self.nomeArquivoBase, encoding='latin-1')
+        arquivo = open(self.nomeArquivoBase, encoding='UTF-8')
+        
         for linha in arquivo.readlines():
             linhaDf = linha.split('|')
             if len(linhaDf) > self.nColunas:
@@ -59,6 +89,7 @@ class BaseDadosCaEPI:
         
         if listaCAsInvalidos:
             self._criarArquivoComErros(listaCAsInvalidos)
+            
         return listaCAsValidos
     
     def _tratarCasComErros(self, linha) -> dict:
