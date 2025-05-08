@@ -1,3 +1,4 @@
+import csv
 import ftplib
 import io
 import zipfile
@@ -73,23 +74,25 @@ class BaseDadosCaEPI:
         listaCAsValidos = []
         listaCAsInvalidos = []
 
-        arquivo = open(self.nomeArquivoBase, encoding='UTF-8')
-        
-        for linha in arquivo.readlines():
-            linhaDf = linha.split('|')
-            if len(linhaDf) > self.nColunas:
-                resul_tratamento = self._tratarCasComErros(linha)
-                if resul_tratamento['sucess']:
-                    linhaDf = resul_tratamento['linha']
-                else:
-                    listaCAsInvalidos.append(linha)
-                    continue
-    
-            listaCAsValidos.append(linhaDf)
-        
+        with open(self.nomeArquivoBase, encoding='UTF-8') as arquivo:
+            reader = csv.reader(arquivo, delimiter='|', quotechar='"')
+            
+            for linhaDf in reader:
+                if len(linhaDf) > self.nColunas:
+                    # Reconstrói a linha original para tratamento
+                    linha_original = '|'.join(linhaDf)
+                    resul_tratamento = self._tratarCasComErros(linha_original)
+                    if resul_tratamento['sucess']:
+                        linhaDf = resul_tratamento['linha']
+                    else:
+                        listaCAsInvalidos.append(linha_original)
+                        continue
+
+                listaCAsValidos.append(linhaDf)
+
         if listaCAsInvalidos:
             self._criarArquivoComErros(listaCAsInvalidos)
-            
+
         return listaCAsValidos
     
     def _tratarCasComErros(self, linha) -> dict:
